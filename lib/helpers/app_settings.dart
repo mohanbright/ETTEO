@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-/// AppSetting enum constants.
+//// AppSetting enum constants.
 enum AppSetting {
   stsAuthority,
   rootApiUrl,
   clientRoot,
   clientId,
   helloSignTestMode
+  
 }
 
 /// This class will be used to store Appsettings like auth url, root url

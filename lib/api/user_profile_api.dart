@@ -16,11 +16,16 @@ class UserProfileApi extends BaseApi {
     Response response;
 
     try {
-      response = await getDio().then((dio) => dio.get(url,
-          options: Options(headers: {
-            HttpHeaders.authorizationHeader:
-                'Bearer ' + AuthenticationToken().getAccessToken()
-          })));
+      response = await getDio().then((dio) => dio.get(
+        url,
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader: 'Bearer ' + AuthenticationToken().getAccessToken()
+              
+          }
+        )
+      ));
+      
 
       var result = response.data["result"];
       print("USERRRR_PROFILE_RESULT$result");

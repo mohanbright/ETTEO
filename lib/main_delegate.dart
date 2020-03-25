@@ -1,5 +1,8 @@
 
+// import 'package:background_fetch/background_fetch.dart';
+import 'package:etteo_demo/bloc/orders_bloc.dart';
 import 'package:etteo_demo/indicator.dart';
+import 'package:etteo_demo/offline/database/database_client.dart';
 import 'package:etteo_demo/pages/login_page.dart';
 import 'package:etteo_demo/pages/main_home_page.dart';
 import 'package:etteo_demo/pages/splash_screen.dart';
@@ -9,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:etteo_demo/bloc/bloc.dart';
 import 'package:etteo_demo/helpers/app_config.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// import 'offline/sync/sync_queue .dart';
 
 
 
@@ -21,6 +26,23 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   int _status = 0;
   
+
+
+  @override
+  void initState() {
+    super.initState();
+    // initPlatformState();
+
+    /// Initialize the offline sqflite databse
+    DatabaseClient().init();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    DatabaseClient().close();
+  }
+
 
 
   // Future<void> initPlatformState() async {
@@ -62,17 +84,26 @@ class _AppState extends State<App> {
           }
 
           if (state is AppSettingsFetched) {
+             AppConfig().setAppSettings(AppSettings());
             return MultiBlocProvider(
               providers: [
-                BlocProvider<SessionBloc>(
-                  builder: (BuildContext context)=>SessionBloc(),
-                ),
                 BlocProvider<AuthenticationBloc>(
-                  builder: (BuildContext context)=>AuthenticationBloc(),
-                ),
-                BlocProvider<LandingBloc>(
-                  builder: (context) => LandingBloc(),
-                ),
+                    builder: (BuildContext context) => AuthenticationBloc(),
+                  ),
+                  
+                  BlocProvider<SessionBloc>(
+                    builder: (context) => SessionBloc(),
+                  ),
+                  
+                  BlocProvider<OrdersBloc>(
+                    builder: (context) => OrdersBloc(),
+                  ),
+                  BlocProvider<LandingBloc>(
+                    builder: (context) => LandingBloc(),
+                  ),
+                  BlocProvider<OfflineBloc>(
+                    builder: (BuildContext context) => OfflineBloc(),
+                  ),
               ], 
               child: Scaffold(body: IndexPage()),
             );

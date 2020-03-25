@@ -5,10 +5,10 @@ class DatabaseHelper {
   /// Save the model to database
   Future<int> save<T extends BaseDatabaseModel>(T model) async {
     return await DatabaseClient().db.insert(
-      model.tableName(),
-      model.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+          model.tableName(),
+          model.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
   }
 
   // Save the list of model in batch - insert at once.
@@ -20,20 +20,21 @@ class DatabaseHelper {
 
       // models.forEach((model) => {batch.insert(model.tableName(), model)});
       models.forEach((model) => {
-        batch.insert(model.tableName(), model.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace)
-      });
+            batch.insert(model.tableName(), model.toMap(),
+                conflictAlgorithm: ConflictAlgorithm.replace)
+          });
 
       await batch.commit(continueOnError: true);
       // await batch.commit(continueOnError: true);
     });
   }
 
-  Future<T> getByColumn<T extends BaseDatabaseModel>( T model, String id, String whereColumn) async {
+  Future<T> getByColumn<T extends BaseDatabaseModel>(
+      T model, String id, String whereColumn) async {
     Database _db = DatabaseClient().db;
     List<Map> maps = await _db.query(model.tableName(),
-    columns: model.columns(), where: '$whereColumn = ?', whereArgs: [id]);
-
+        columns: model.columns(), where: '$whereColumn = ?', whereArgs: [id]);
+        print("get data from offline By Column $id:${maps.length}");
     if (maps.length > 0) {
       return model.fromMap(maps.first);
     }
@@ -44,31 +45,44 @@ class DatabaseHelper {
   Future<List<T>> getAll<T extends BaseDatabaseModel>(T model) async {
     Database _db = DatabaseClient().db;
     List<Map> result = await _db.query(model.tableName(), columns: model.columns());
+        
+    print("DATA BASE HELPER getAll() result:$result");
+
     List<T> resultList = List();
     result.forEach((f) => resultList.add(model.fromMap(f)));
-    print("QUEUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE RESULTLISTTTTTTTTTTTTTTTTTT:$resultList");
+    print("DATA BASE HELPER getAll() resultList:$resultList");
     return resultList;
   }
 
-  Future<List<T>> getAllById<T extends BaseDatabaseModel>(  T model, String id, String whereColumn) async {
+
+
+  Future<List<T>> getAllById<T extends BaseDatabaseModel>(
+   T model, String id, String whereColumn) async {
+
     Database _db = DatabaseClient().db;
+    print("_db:$_db");
+    print("model.tableName :${model.tableName()}");
     List<Map> result = await _db.query(model.tableName(),
-    columns: model.columns(), where: '$whereColumn = ?', whereArgs: [id]);
-
+        columns: model.columns(), where: '$whereColumn = ?', whereArgs: [id]);
+   print("READ DATA BASE HELPER getAllById $id  result:$result");
     List<T> resultList = List();
     result.forEach((f) => resultList.add(model.fromMap(f)));
+     print("DATA BASE HELPER getAllById $id resultList:$resultList");
     return resultList;
   }
 
-  Future<int> update<T extends BaseDatabaseModel>(T model, String id, String whereColumn) async {
+  Future<int> update<T extends BaseDatabaseModel>(
+      T model, String id, String whereColumn) async {
     Database _db = DatabaseClient().db;
     return await _db.update(model.tableName(), model.toUpdateMap(),
-    where: '$whereColumn = ?', whereArgs: [id]);
+        where: '$whereColumn = ?', whereArgs: [id]);
   }
 
-  Future<int> delete<T extends BaseDatabaseModel>( T model, String id, String whereColumn) async {
+  Future<int> delete<T extends BaseDatabaseModel>(
+      T model, String id, String whereColumn) async {
     Database _db = DatabaseClient().db;
-    return await _db.delete(model.tableName(), where: '$whereColumn = ?', whereArgs: [id]);     
+    return await _db
+        .delete(model.tableName(), where: '$whereColumn = ?', whereArgs: [id]);
   }
 
   Future<void> deleteAll<T extends BaseDatabaseModel>(T model) async {

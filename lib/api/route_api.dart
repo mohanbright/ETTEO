@@ -25,8 +25,9 @@ class RouteApi extends BaseApi {
 
       List<RouteModel> resultRoutes = List();
       var result = response.data["result"];
+      print("route api response getAllRoutes result:$result");
       result.forEach((f) => resultRoutes.add(RouteModel.fromJson(f)));
-       print("route api response:$resultRoutes");
+       print("route api response getAllRoutes:$resultRoutes");
       return resultRoutes;
     } catch (e) {
       throw e;
@@ -48,9 +49,9 @@ class RouteApi extends BaseApi {
       if (response.data == "") {
         return null;
       }
-
+     
       var result = response.data["result"];
-
+       print("RouteApi getRouteById() result:$result ");
       return RouteModel.fromJson(result);
     } catch (e) {
       throw e;
@@ -71,8 +72,9 @@ class RouteApi extends BaseApi {
 
       List<RouteStatusModel> routeStatuses = List();
       var result = response.data["result"];
+       print("route api response getAllRouteStatus result:$result");
       result.forEach((f) => routeStatuses.add(RouteStatusModel.fromJson(f)));
-
+      print("route api response getAllRouteStatus:${routeStatuses.length}");
       return routeStatuses;
     } catch (e) {
       throw e;
@@ -99,6 +101,7 @@ class RouteApi extends BaseApi {
               }));
 
       var flag = response.data["result"];
+      print("Route api updateRouteStatus flag:$flag");
       return flag != null ? flag : false;
     } catch (e) {
       throw e;

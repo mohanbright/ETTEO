@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main(){
   AppConfig().setAppConfig(
     appEnvironment: AppEnvironment.DEV,
-    clientSecret: 'BSOcBKiqoAdQ9oAdmQghsteihAcXBOGj',// kZNw1DsgbevCHGrdWWbUUkKEQnaLjOhm
-    appSettingsUrl: 'https://int-portal.etteo.com',
+    clientSecret: 'kZNw1DsgbevCHGrdWWbUUkKEQnaLjOhm',//'BSOcBKiqoAdQ9oAdmQghsteihAcXBOGj',
+    appSettingsUrl: 'https://dev-portal.etteo.com',
     forgotPasswordUrl: 'https://int-auth.etteo.com/Account/Login',
     oneSignalAppId: '9ba52e93-d838-4b84-aebe-d415f7322b58'
   );
@@ -23,7 +23,7 @@ void main(){
         "clientRoot": "https://int-portal.etteo.com/",
         "helloSignTestMode": "True",
         "rootApiUrl": "https://int-api.etteo.com/",
-        "stsAuthority": "https://int-auth.etteo.com/"
+        "stsAuthority":"https://int-auth.etteo.com/" //"https://int-auth.etteo.com/"
       })
     )
   );

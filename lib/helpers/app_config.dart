@@ -18,8 +18,8 @@ class AppConfig {
   AppEnvironment appEnvironment;
   AppSettings appSettings;
   NetworkConnectivity networkConnectivity;
-  String appName;
   UserProfileModel userProfile;
+  String appName;
   String appSettingsUrl;
   String forgotPasswordUrl;
   String clientSecret;
@@ -44,13 +44,12 @@ class AppConfig {
     this.themeData = themeData;
     this.oneSignalAppId = oneSignalAppId;
   }
-  
+
   // Set app configuration with single function
   void resetUserProfile() {
     this.userProfile = null;
   }
 
-  
   void setAppSettings(AppSettings appSettings) {
     this.appSettings = appSettings;
   }

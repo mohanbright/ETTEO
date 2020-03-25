@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// Snack bar for info type
-Widget progressSnackBarInfo(String text, int seconds ) {
+Widget progressSnackBarInfo(String text,) {
   return SnackBar(
-    duration: Duration(seconds: seconds),
+    duration: Duration(seconds: 3),
     content: Text(text),
     backgroundColor: Colors.grey[700],
     behavior: SnackBarBehavior.fixed,

@@ -4,6 +4,7 @@ import 'package:etteo_demo/offline/database/database_helper.dart';
 import 'package:etteo_demo/offline/database/dbmodel/master_data_db_model.dart';
 import 'package:etteo_demo/offline/sync/master_table.dart';
 
+
 abstract class BaseSync<T extends BaseModel> {
   Future<List> getApiData<T extends BaseModel>({Map<String, String> params});
 
@@ -21,8 +22,7 @@ abstract class BaseSync<T extends BaseModel> {
     return DatabaseHelper().save(masterDataDBModel);
   }
 
-  Future<void> saveAll<T extends BaseModel>(
-      {List<T> model, MasterTable table, String parentKey}) {
+  Future<void> saveAll<T extends BaseModel>( {List<T> model, MasterTable table, String parentKey}) {
     List<MasterDataDBModel> toSave = List();
     // DatabaseHelper().s
     model.forEach((o) => toSave.add(MasterDataDBModel(
@@ -36,7 +36,7 @@ abstract class BaseSync<T extends BaseModel> {
   }
 
   Future<int> deleteAll(MasterTable table) {
-    return DatabaseHelper()
-        .delete(MasterDataDBModel(), table.toString(), 'masterDataName');
+    return DatabaseHelper().delete(MasterDataDBModel(), table.toString(), 'masterDataName');
+       
   }
 }

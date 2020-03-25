@@ -15,7 +15,7 @@ class RouteStatusSync extends BaseSync<RouteStatusModel> {
         MasterDataDBModel(),
         MasterTable.RouteStatus.toString(),
         'masterDataName');
-
+     
     List<RouteStatusModel> returnResult = List();
     result.forEach(
         (f) => returnResult.add(RouteStatusModel.fromJson(decode(f.jsonData))));
@@ -28,3 +28,4 @@ class RouteStatusSync extends BaseSync<RouteStatusModel> {
     return await _routeProviderApi.getAllRouteStatus();
   }
 }
+

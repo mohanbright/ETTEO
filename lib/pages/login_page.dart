@@ -6,10 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailAddressController = TextEditingController();
+
   final _passwordController = TextEditingController();
 
   @override
@@ -42,7 +48,7 @@ class LoginPage extends StatelessWidget {
 
         if (state is Authenticating) {
           print('Authenticating_progressSnackBarInfo :$state');
-          Scaffold.of(context).showSnackBar( progressSnackBarInfo('Authenticating, Please wait...',4));
+          Scaffold.of(context).showSnackBar( progressSnackBarInfo('Authenticating, Please wait...'));
           //  progressSnackBarInfo('Authenticating, Please wait...');
              
         }
